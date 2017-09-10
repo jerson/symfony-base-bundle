@@ -1,0 +1,6 @@
+{% if block %}
+
+    {{ include(template_from_string(block.html),sandboxed=true, ignore_missing = true) }}
+
+{% endif %}
+

@@ -1,0 +1,50 @@
+services:
+    app.composer_reader:
+         class: BaseBundle\Services\ComposerReaderService
+         arguments: ["%kernel.root_dir%"]
+
+    app.task_manager:
+         class: BaseBundle\Services\TaskService
+         arguments: ["%beanstalkd_host%","%beanstalkd_port%"]
+
+    app.preferences:
+         class: BaseBundle\Services\PreferenceService
+         arguments: ["@doctrine.orm.entity_manager"]
+
+    app.locale_listener:
+        class: BaseBundle\EventListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.twig.database_preferences_extension:
+         class: BaseBundle\Twig\Extension\DatabasePreferencesExtension
+         lazy: true
+         arguments: ["@app.preferences"]
+         tags:
+             - { name: twig.extension }
+
+    app.twig.composer_reader_extension:
+         class: BaseBundle\Twig\Extension\ComposerReaderExtension
+         lazy: true
+         arguments: ["@app.composer_reader"]
+         tags:
+             - { name: twig.extension }
+
+    base.admin.contentblock:
+        class: BaseBundle\Admin\ContentBlockAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content",label_catalogue: "messages",  label: "Content Block" }
+        arguments:
+            - ~
+            - BaseBundle\Entity\ContentBlock
+            - BaseBundle:ContentBlockAdmin
+
+    base.admin.preference:
+        class: BaseBundle\Admin\PreferenceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false,  group: "Settings", label_catalogue: "messages",label: "Preferences"}
+        arguments:
+            - ~
+            - BaseBundle\Entity\Preference
+            - ~
