@@ -11,11 +11,11 @@ services:
          class: BaseBundle\Services\PreferenceService
          arguments: ["@doctrine.orm.entity_manager"]
 
-    app.locale_listener:
-        class: BaseBundle\EventListener\LocaleListener
-        arguments: ["%kernel.default_locale%"]
-        tags:
-            - { name: kernel.event_subscriber }
+#    app.locale_listener:
+#        class: BaseBundle\EventListener\LocaleListener
+#        arguments: ["%kernel.default_locale%"]
+#        tags:
+#            - { name: kernel.event_subscriber }
 
     app.twig.database_preferences_extension:
          class: BaseBundle\Twig\Extension\DatabasePreferencesExtension
