@@ -11,10 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 /**
@@ -46,6 +43,14 @@ class ContentBlockAdmin extends AbstractAdmin
         return $actions;
     }
 
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            ['@Base/Form/fields.html.twig']
+        );
+    }
+
     /**
      * @param RouteCollection $collection
      */
@@ -53,14 +58,6 @@ class ContentBlockAdmin extends AbstractAdmin
     {
         $collection->remove('create');
         $collection->remove('delete');
-    }
-
-    public function getFormTheme()
-    {
-        return array_merge(
-            parent::getFormTheme(),
-            ['@Base/Form/fields.html.twig']
-        );
     }
 
     /**
