@@ -13,6 +13,8 @@ Disable:
 'Failed to enable':
 'Disabled correctly':
 'Failed to disable':
-Vars:
+Variables:
 'Preference List':
 'Content Block List':
+'You can use these variables in the text':
+'Example':

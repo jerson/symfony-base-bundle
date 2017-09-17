@@ -2,6 +2,7 @@
 
 namespace BaseBundle\Admin;
 
+use BaseBundle\Form\Type\NameType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -21,6 +22,14 @@ class PreferenceAdmin extends AbstractAdmin
         '_sort_by' => 'name'
     ];
 
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            ['@Base/Form/fields.html.twig']
+        );
+    }
+
     /**
      * @param RouteCollection $collection
      */
@@ -36,11 +45,14 @@ class PreferenceAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', TextType::class)
+            ->add('name', NameType::class, [
+                'required' => false,
+                'attr' => array(
+                    'readonly' => true
+                ),
+            ])
             ->add('value', TextType::class, ['required' => false]);
     }
-
-    // Fields to be shown on filter forms
 
     /**
      * {@inheritDoc}
@@ -60,7 +72,14 @@ class PreferenceAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('value');
+            ->add('name', 'trans', [
+                'catalogue' => 'messages'
+            ])
+            ->add('value')
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'edit' => [],
+                ]
+            ]);;
     }
 }

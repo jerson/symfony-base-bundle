@@ -29,7 +29,7 @@ class LoadContentBlockData extends LoadBaseData
         for ($i = 0; $i < 3; $i++) {
             $option = new ContentBlock();
             $option->setName(sprintf('block%s', $i));
-            $option->setVars([]);
+            $option->setVariables([]);
             $option->setHtml($this->faker->text(500));
             $option->setEnabled($this->faker->randomElement([false, true]));
             $manager->persist($option);

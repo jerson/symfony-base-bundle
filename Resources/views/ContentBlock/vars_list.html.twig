@@ -1,0 +1,14 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    <div>
+        {% for variable in object.variables %}
+            <div style="margin: 2px;display: inline-block">
+            <span class="label label-primary">
+            {{ '{{' }}{{ variable }}{{ '}}' }}
+            </span>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

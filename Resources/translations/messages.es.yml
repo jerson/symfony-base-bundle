@@ -13,6 +13,8 @@ Disable: Desactivar
 'Failed to enable': 'Error al habilitar'
 'Disabled correctly': 'Desactivado correctamente'
 'Failed to disable': 'Error al desactivar'
-Vars: Variables
+Variables: Variables
 'Preference List': Preferencias
 'Content Block List': 'Bloques de contenido'
+'You can use these variables in the text': 'Puedes usar estas variables en el texto'
+'Example': 'Ejemplo'

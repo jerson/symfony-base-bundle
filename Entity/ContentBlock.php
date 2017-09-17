@@ -40,9 +40,9 @@ class ContentBlock
     /**
      * @var array
      *
-     * @ORM\Column(name="vars", nullable=true, type="simple_array")
+     * @ORM\Column(name="variables", nullable=true, type="simple_array")
      */
-    private $vars;
+    private $variables;
 
     /**
      * @var boolean
@@ -154,25 +154,25 @@ class ContentBlock
     }
 
     /**
-     * Get vars
+     * Get variables
      *
      * @return array
      */
-    public function getVars()
+    public function getVariables()
     {
-        return $this->vars;
+        return $this->variables;
     }
 
     /**
-     * Set vars
+     * Set variables
      *
-     * @param array $vars
+     * @param array $variables
      *
      * @return ContentBlock
      */
-    public function setVars($vars)
+    public function setVariables($variables)
     {
-        $this->vars = $vars;
+        $this->variables = $variables;
 
         return $this;
     }

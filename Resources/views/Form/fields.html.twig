@@ -1,0 +1,35 @@
+{% block name_widget %}
+    {{ value | trans }}
+    <div style="display: none">
+        {% spaceless %}
+            {{ block('form_widget') }}
+        {% endspaceless %}
+    </div>
+{% endblock %}
+
+{% block variables_widget %}
+    {% if value is not empty %}
+        {% for variable in value %}
+            <div style="margin: 2px;display: inline-block">
+            <span class="label label-primary">
+            {{ '{{' }}{{ variable }}{{ '}}' }}
+            </span>
+
+
+            </div>
+        {% endfor %}
+        <br>
+        <div>{{ 'You can use these variables in the text' | trans }}</div>
+        <div>{{ 'Example' | trans }}: lorem
+            {{ '{{variable_here}}' }} ipsum
+        </div>
+
+    {% else %}
+        <span>-</span>
+    {% endif %}
+    <div style="display: none">
+        {% spaceless %}
+            {{ block('collection_widget') }}
+        {% endspaceless %}
+    </div>
+{% endblock %}

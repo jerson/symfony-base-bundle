@@ -2,6 +2,8 @@
 
 namespace BaseBundle\Admin;
 
+use BaseBundle\Form\Type\NameType;
+use BaseBundle\Form\Type\VariablesType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -9,7 +11,11 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 /**
  * {@inheritDoc}
@@ -40,7 +46,6 @@ class ContentBlockAdmin extends AbstractAdmin
         return $actions;
     }
 
-
     /**
      * @param RouteCollection $collection
      */
@@ -50,12 +55,33 @@ class ContentBlockAdmin extends AbstractAdmin
         $collection->remove('delete');
     }
 
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            ['@Base/Form/fields.html.twig']
+        );
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('name', NameType::class, [
+                'required' => false,
+                'attr' => array(
+                    'readonly' => true
+                ),
+            ])
+            ->add('variables', VariablesType::class, [
+                'attr' => array(
+                    'readonly' => true,
+                ),
+                'required' => false
+
+            ])
             ->add('enabled', CheckboxType::class, ['required' => false])
             ->add('html', TextareaType::class, ['required' => false]);
     }
@@ -85,11 +111,12 @@ class ContentBlockAdmin extends AbstractAdmin
                 'catalogue' => 'messages'
             ])
             ->add('enabled')
-            ->add('vars', 'array')
+            ->add('variables', 'array', [
+                'template' => '@Base/ContentBlock/vars_list.html.twig'
+            ])
             ->add('_action', 'actions', [
                 'actions' => [
                     'edit' => [],
-                    'show' => [],
                 ]
             ]);
     }
@@ -105,6 +132,6 @@ class ContentBlockAdmin extends AbstractAdmin
             ])
             ->add('enabled')
             ->add('html')
-            ->add('vars', 'array');
+            ->add('variables', 'array');
     }
 }
