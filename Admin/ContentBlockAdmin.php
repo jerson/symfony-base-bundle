@@ -58,6 +58,7 @@ class ContentBlockAdmin extends AbstractAdmin
     {
         $collection->remove('create');
         $collection->remove('delete');
+        $collection->remove('show');
     }
 
     /**
@@ -66,12 +67,7 @@ class ContentBlockAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', NameType::class, [
-                'required' => false,
-                'attr' => array(
-                    'readonly' => true
-                ),
-            ])
+            ->add('name', NameType::class, ['required' => false])
             ->add('variables', VariablesType::class, [
                 'attr' => array(
                     'readonly' => true,

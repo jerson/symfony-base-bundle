@@ -37,6 +37,7 @@ class PreferenceAdmin extends AbstractAdmin
     {
         $collection->remove('create');
         $collection->remove('delete');
+        $collection->remove('show');
     }
 
     /**
@@ -45,12 +46,7 @@ class PreferenceAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', NameType::class, [
-                'required' => false,
-                'attr' => array(
-                    'readonly' => true
-                ),
-            ])
+            ->add('name', NameType::class, ['required' => false])
             ->add('value', TextType::class, ['required' => false]);
     }
 

@@ -1,12 +1,21 @@
 {% block name_widget %}
-    {{ value | trans }}
-    <div style="display: none">
+    {% if value is empty %}
         {% spaceless %}
             {{ block('form_widget') }}
         {% endspaceless %}
-    </div>
+    {% else %}
+        {{ value | trans }}
+        <div style="display: none">
+            {% spaceless %}
+                {{ block('form_widget') }}
+            {% endspaceless %}
+        </div>
+    {% endif %}
 {% endblock %}
 
+
+{% block variables_label %}
+{% endblock %}
 {% block variables_widget %}
     {% if value is not empty %}
         {% for variable in value %}
@@ -24,8 +33,6 @@
             {{ '{{variable_here}}' }} ipsum
         </div>
 
-    {% else %}
-        <span>-</span>
     {% endif %}
     <div style="display: none">
         {% spaceless %}
